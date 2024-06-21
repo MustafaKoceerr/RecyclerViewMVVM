@@ -1,6 +1,5 @@
-package com.example.recyclerviewmvvm
+package com.example.recyclerviewmvvm.util
 
-import com.example.recyclerviewmvvm.model.Movie
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

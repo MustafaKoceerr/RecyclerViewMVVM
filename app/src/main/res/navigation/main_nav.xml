@@ -5,6 +5,6 @@
     app:startDestination="@id/moviesFragment">
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.example.recyclerviewmvvm.MoviesFragment"
+        android:name="com.example.recyclerviewmvvm.ui.movies.MoviesFragment"
         android:label="MoviesFragment" />
 </navigation>

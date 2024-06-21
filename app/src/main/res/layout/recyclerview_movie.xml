@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="movie"
-            type="com.example.recyclerviewmvvm.model.Product" />
+            type="com.example.recyclerviewmvvm.data.model.Product" />
     </data>
 
     <LinearLayout
@@ -31,10 +32,13 @@
                         android:id="@+id/imageView"
                         android:layout_width="match_parent"
                         android:layout_height="195dp"
-                        android:background="@drawable/captain_marvel"
-                        android:scaleType="matrix" />
+                        android:scaleType="fitCenter"
+                        app:setImageWithGlide="@{movie.images.get(0)}"
+
+                        />
 
                     <TextView
+                        android:visibility="@{movie.stock > 0 ? View.VISIBLE : View.INVISIBLE}"
                         android:id="@+id/textViewIsNew"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -42,7 +46,7 @@
                         android:width="38dp"
                         android:background="#1C9603"
                         android:padding="2dp"
-                        android:text="New"
+                        android:text="In Stock"
                         android:textAlignment="center"
                         android:textColor="#ffffff"
                         android:textSize="12sp" />
@@ -147,6 +151,7 @@
                     android:background="#414141" />
 
                 <TextView
+                    android:text="@{String.valueOf(movie.price)}"
                     android:id="@+id/textViewType"
                     android:layout_width="28dp"
                     android:layout_height="wrap_content"

@@ -1,28 +1,22 @@
-package com.example.recyclerviewmvvm
+package com.example.recyclerviewmvvm.ui.movies
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.recyclerviewmvvm.R
+import com.example.recyclerviewmvvm.data.network.MoviesApi
+import com.example.recyclerviewmvvm.data.repository.MoviesRepository
 import com.example.recyclerviewmvvm.databinding.FragmentMoviesBinding
-import com.example.recyclerviewmvvm.databinding.RecyclerviewMovieBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MoviesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MoviesFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -49,12 +43,12 @@ class MoviesFragment : Fragment() {
         val api = MoviesApi()
         val repository = MoviesRepository(api)
         val factory = MoviesViewModelFactory(repository)
-        viewModel = ViewModelProvider(this,factory).get(MoviesViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(MoviesViewModel::class.java)
 
         viewModel.getMovies()
 
         viewModel.movies.observe(viewLifecycleOwner, Observer { productList->
-            Log.d("Products","Is null $productList")
+            Log.d("products", "ProductList: ${productList}")
 
             binding.recylerViewMovies.also {recyclerView ->
                 recyclerView.layoutManager = LinearLayoutManager(requireContext())

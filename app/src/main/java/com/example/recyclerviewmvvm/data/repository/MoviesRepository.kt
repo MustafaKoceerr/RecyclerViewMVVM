@@ -1,6 +1,7 @@
-package com.example.recyclerviewmvvm
+package com.example.recyclerviewmvvm.data.repository
 
-import com.example.recyclerviewmvvm.model.Movie
+import com.example.recyclerviewmvvm.data.model.Movie
+import com.example.recyclerviewmvvm.data.network.MoviesApi
 
 class MoviesRepository(
     private val api: MoviesApi
