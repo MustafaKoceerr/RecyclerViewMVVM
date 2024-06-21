@@ -21,11 +21,13 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+  /*
         val repository = MoviesRepository(MoviesApi.invoke())
 
         GlobalScope.launch(Dispatchers.Default) {
             val movies = repository.getMoviesRepo()
             Log.d("Movies","$movies")
         }
+   */
     }
 }
