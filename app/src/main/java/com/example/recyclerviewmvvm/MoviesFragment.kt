@@ -1,11 +1,17 @@
 package com.example.recyclerviewmvvm
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.recyclerviewmvvm.databinding.FragmentMoviesBinding
+import com.example.recyclerviewmvvm.databinding.RecyclerviewMovieBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,7 +29,7 @@ class MoviesFragment : Fragment() {
     private var param2: String? = null
 
     private lateinit var viewModel: MoviesViewModel
-
+    private lateinit var binding: FragmentMoviesBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -37,14 +43,29 @@ class MoviesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_movies, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_movies, container, false)
+        val view = binding.root
 
         val api = MoviesApi()
         val repository = MoviesRepository(api)
         val factory = MoviesViewModelFactory(repository)
         viewModel = ViewModelProvider(this,factory).get(MoviesViewModel::class.java)
 
+        viewModel.getMovies()
 
+        viewModel.movies.observe(viewLifecycleOwner, Observer { productList->
+            Log.d("Products","Is null $productList")
+
+            binding.recylerViewMovies.also {recyclerView ->
+                recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                recyclerView.setHasFixedSize(true)
+                // Bu değişmeyen listeler için optimizasyon sağlar.
+                // Kendi projende Paging yapacağın için yani eklemeler ve çıkarmalar yapacağın için,
+                // Bunu kullanmamalısın.
+                recyclerView.adapter = MoviesAdapter(productList)
+            }
+
+        })
 
 
 
